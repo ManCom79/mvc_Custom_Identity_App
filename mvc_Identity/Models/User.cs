@@ -3,7 +3,7 @@ using mvc_Identity.Enums;
 
 namespace mvc_Identity.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         public string FullName { get; set; }
         public int Age { get; set; }
