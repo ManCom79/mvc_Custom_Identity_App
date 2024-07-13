@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using mvc_Identity.Models;
 using mvc_Identity.Data;
+using mvc_Identity.Data.Implementations;
+using mvc_Identity.Data.Interfaces;
+using mvc_Identity.Services.Interfaces;
+using mvc_Identity.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddTransient<IMovieService, MovieService>();
+builder.Services.AddTransient<IRentService, RentService>();
+builder.Services.AddTransient<IMovieDataTableRepository, MovieDataTableRepository>();
+builder.Services.AddTransient<IRentDataTableRepository, RentDataTableRepository>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

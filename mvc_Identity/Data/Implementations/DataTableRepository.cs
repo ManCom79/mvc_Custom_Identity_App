@@ -1,8 +1,9 @@
-﻿using mvc_Identity.Data;
-using mvc_Identity.DataAccess.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using mvc_Identity.Data;
+using mvc_Identity.Data.Interfaces;
 using mvc_Identity.Models;
 
-namespace mvc_Identity.DataAccess.Implementations
+namespace mvc_Identity.Data.Implementations
 {
     public class DataTableRepository<T> : IDataTableRepository<T> where T : Base
     {
@@ -18,27 +19,35 @@ namespace mvc_Identity.DataAccess.Implementations
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteById(int Id)
         {
-            throw new NotImplementedException();
+            var record = GetById(Id);
+            Delete(record);
         }
 
         public List<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Set<T>().AsNoTracking().ToList();
         }
 
         public T GetById(int Id)
         {
-            throw new NotImplementedException();
+            var record = _dbContext.Set<T>().AsNoTracking().Where(x => x.Id == Id).FirstOrDefault();
+            if (record == null)
+            {
+                throw new Exception($"There is no record with id: {Id}");
+            }
+            return record;
         }
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

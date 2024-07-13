@@ -1,6 +1,6 @@
 ﻿using mvc_Identity.Models;
 
-namespace mvc_Identity.DataAccess.Interfaces
+namespace mvc_Identity.Data.Interfaces
 {
     public interface IDataTableRepository<T> where T : Base
     {

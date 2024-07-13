@@ -11,5 +11,7 @@ namespace mvc_Identity.Data
             : base(options)
         {
         }
+        public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<Rental> Rentals { get; set; }
     }
 }
